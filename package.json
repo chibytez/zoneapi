@@ -1,0 +1,15 @@
+{
+  "name": "zoneapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "newman run ./ZoneAPI.postman_collection.json -e ./zone.postman_environment.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "newman": "^6.1.2"
+  }
+}

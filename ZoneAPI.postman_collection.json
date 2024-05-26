@@ -1,0 +1,205 @@
+{
+	"info": {
+		"_postman_id": "9beedb9b-95b8-4c50-8f36-a68853e8a598",
+		"name": "Zone API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7436172"
+	},
+	"item": [
+		{
+			"name": "Get All Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('should have status 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"})",
+							"",
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test('Response has id', () => {",
+							"    const {id} = jsonData[0];",
+							"    pm.environment.set('userId', id)",
+							"    pm.expect(id).to.be.a('number');",
+							"})",
+							"",
+							"pm.test('Response has name', () => {",
+							"    const {name} = jsonData[0];",
+							"    pm.expect(name).to.be.a('string');",
+							"})",
+							"",
+							"pm.test('Response has username', () => {",
+							"    const {username} = jsonData[0];",
+							"    pm.expect(username).to.be.a('string');",
+							"})",
+							"",
+							"pm.test('Response has email', () => {",
+							"    const {email} = jsonData[0];",
+							"    pm.expect(email).to.be.a('string');",
+							"})",
+							"",
+							"pm.test('Response has email', () => {",
+							"    const {address} = jsonData[0];",
+							"    pm.expect(address).to.be.a('object');",
+							"})",
+							"",
+							"pm.test(\"Response has to have ten users\", () => {",
+							"    pm.expect(jsonData).to.have.length(10);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/users",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get A User Details",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.environment.set('userId', Math.floor(Math.random() * 10))"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('should have status 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const responseData = pm.response.json();",
+							"",
+							"pm.test('Response has id', () => {",
+							"    const {id} = responseData;",
+							"    pm.environment.set('userId', id);",
+							"    pm.expect(id).to.be.a('number');",
+							"});",
+							"",
+							"pm.test('Response has name', () => {",
+							"    const {name} = responseData;",
+							"    pm.expect(name).to.be.a('string');",
+							"});",
+							"",
+							"pm.test('Response has username', () => {",
+							"    const {username} = responseData;",
+							"    pm.expect(username).to.be.a('string');",
+							"});",
+							"",
+							"pm.test('Response has email', () => {",
+							"    const {email} = responseData;",
+							"    pm.expect(email).to.be.a('string');",
+							"});",
+							"",
+							"pm.test('Response has address', () => {",
+							"    const {address} = responseData;",
+							"    pm.expect(address).to.be.an('object');",
+							"});",
+							"",
+							"pm.test(\"Print user's name, email, and address to console\", () => {",
+							"     const {name, email, address} = responseData;",
+							"    console.log(`User Name: ${name}, Email: ${email}, Address: ${address.street}, ${address.suite}, ${address.city}, ${address.zipcode}`);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/users/{{userId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"users",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get A users post",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test('should have status 200', () => {",
+							"    pm.response.to.have.status(200);",
+							"})",
+							"",
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test('Response has id', () => {",
+							"    const {id} = jsonData[0];",
+							"    pm.expect(id).to.be.a('number');",
+							"})",
+							"",
+							"pm.test('Response has userId', () => {",
+							"    const {userId} = jsonData[0];",
+							"    pm.expect(userId).to.be.a('number');",
+							"})",
+							"",
+							"pm.test('Response has title', () => {",
+							"    const {title} = jsonData[0];",
+							"    pm.expect(title).to.be.a('string');",
+							"})",
+							"",
+							"pm.test('Response has body', () => {",
+							"    const {body} = jsonData[0];",
+							"    pm.expect(body).to.be.a('string');",
+							"})",
+							"",
+							"pm.test(\"Response has to have ten users\", () => {",
+							"    pm.expect(jsonData).to.have.length(10);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/user/{{userId}}/posts",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"{{userId}}",
+						"posts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
